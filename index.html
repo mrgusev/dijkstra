@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #map_canvas { height: 600px; width: 800px;}
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzwnaRzoEi_b3Kaw4wHFXL4frumuAE9ws&sensor=true">
+    </script>
+    <script src="js/prototypes.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+    <script type="text/javascript" src="js/graphEditor.js"></script>
+    <style>
+        #map_canvas{
+           float: left;
+        }
+        button{
+            display: block;
+            margin-bottom: 20px;
+        }
+        .controls{
+            padding: 50px;
+            float: left;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="map_canvas"></div>
+    <div class="controls">
+        <button onclick="resetCurrentNode()">Начальная точка</button>
+        <button onclick="showData()">Получить код графа</button>
+        <textarea name="" id="data" cols="30" rows="10" style="display: none"></textarea>
+        <!--<button onclick="setGraphFromFile()">Построить граф из файла</button>-->
+        <input type="checkbox" id="delete-checkbox"/> Удалить точку
+    </div>
+</body>
+</html>
