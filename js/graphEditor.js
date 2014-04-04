@@ -1,6 +1,7 @@
 var resetCurrentNode;
 var setGraphFromFile;
 var showData;
+var loadGraph;
 (function(){
     var map;
     var markersArray = [];
@@ -26,6 +27,79 @@ var showData;
             // place a marker
             placeMarker(event.latLng);
         });
+    }
+
+    function addNode(latLng){
+        var count = nodes.length + 1;
+        var node = {
+            id: count,
+            lat: latLng.lat(),
+            lng: latLng.lng()
+        };
+        nodes.push(node);
+        if(currentNode){
+            addNodeLink(currentNode, node);
+        }
+        currentNode = node;
+        return node;
+    }
+
+    function deleteNode(node){
+        var links = _.where(nodeLinks, {node1Id: node.id}).concat(_.where(nodeLinks, {node2Id: node.id}));
+        var marker = _.findWhere(markersArray, {node: node});
+        nodes.remove(node);
+        markersArray.remove(marker);
+        marker.setMap(null);
+        _.each(links, function(link){
+            nodeLinks.remove(link);
+        });
+        currentNode = null;
+        drawAllPaths();
+        $('#delete-checkbox').prop('checked', '');
+        isNodeDeleting = false;
+
+    }
+
+    function addNodeLink(node1, node2){
+        if(!_.findWhere(nodeLinks, {node1Id: node1.id, node2Id: node2.id}) &&
+            !_.findWhere(nodeLinks, {node1Id: node2.id, node2Id: node1.id})) {
+
+            var nodeLink = {
+                node1Id: node1.id,
+                node2Id: node2.id,
+                distance: getDistance(node1, node2)
+            };
+            nodeLinks.push(nodeLink);
+            addPathSegment(node1, node2);
+        }
+    }
+
+    function setAllNodeLinks(data){
+        clearAll();
+        nodes = data.nodes;
+        _.each(nodes, function(node){
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(node.lat, node.lng),
+                map: map,
+                node: node
+            });
+
+            // add marker in markers array
+            markersArray.push(marker);
+            google.maps.event.addListener(marker, 'click', function() {
+                if(isNodeDeleting){
+                    deleteNode(marker.node);
+                } else{
+                    if(currentNode && currentNode != marker.node){
+                        addNodeLink(currentNode, marker.node);
+                    }
+                    currentNode = marker.node;
+                }
+            });
+        });
+        nodeLinks = data.nodeLinks;
+        currentNode = null;
+        drawAllPaths();
     }
 
     function placeMarker(location) {
@@ -75,61 +149,29 @@ var showData;
         })
     }
 
+    function clearAll(){
+        _.each(segments, function(item){
+            item.setMap(null);
+        });
+        _.each(markersArray, function(item){
+            item.setMap(null);
+        });
+        nodes = [];
+        markersArray = [];
+        nodeLinks = [];
+        segments = [];
+    }
+
     resetCurrentNode = function (){
         currentNode = null;
     };
 
-    function addNode(latLng){
-        var count = nodes.length + 1;
-        var node = {
-            id: count,
-            lat: latLng.lat(),
-            lng: latLng.lng()
-        };
-        nodes.push(node);
-        if(currentNode){
-            addNodeLink(currentNode, node);
-        }
-        currentNode = node;
-        return node;
-    }
-
-    function addNodeLink(node1, node2){
-        if(!_.findWhere(nodeLinks, {node1Id: node1.id, node2Id: node2.id}) &&
-            !_.findWhere(nodeLinks, {node1Id: node2.id, node2Id: node1.id})) {
-
-            var nodeLink = {
-                node1Id: node1.id,
-                node2Id: node2.id,
-                distance: getDistance(node1, node2)
-            };
-            nodeLinks.push(nodeLink);
-            addPathSegment(node1, node2);
-        }
-    }
-
     showData = function(){
         $('#data').show();
-        $('#data').text(JSON.stringify({
+        $('#data').val(JSON.stringify({
             nodeLinks: nodeLinks,
             nodes: nodes
         }));
-
-    }
-
-    function deleteNode(node){
-        var links = _.where(nodeLinks, {node1Id: node.id}).concat(_.where(nodeLinks, {node2Id: node.id}));
-        var marker = _.findWhere(markersArray, {node: node});
-        nodes.remove(node);
-        markersArray.remove(marker);
-        marker.setMap(null);
-        _.each(links, function(link){
-            nodeLinks.remove(link);
-        });
-        currentNode = null;
-        drawAllPaths();
-        $('#delete-checkbox').prop('checked', '');
-        isNodeDeleting = false;
 
     }
 
@@ -143,38 +185,10 @@ var showData;
         });
     }
 
-    function setAllNodeLinks(data){
-        nodes = data.nodes;
-        _.each(nodes, function(node){
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(node.lat, node.lng),
-                map: map,
-                node: node
-            });
-
-            // add marker in markers array
-            markersArray.push(marker);
-            google.maps.event.addListener(marker, 'click', function() {
-                if(isNodeDeleting){
-                    deleteNode(marker.node);
-                } else{
-                    if(currentNode && currentNode != marker.node){
-                        addNodeLink(currentNode, marker.node);
-                    }
-                    currentNode = marker.node;
-                }
-            });
-        });
-
-        nodeLinks = data.nodeLinks;
-        drawAllPaths();
-    }
-    $(document).ready(function(){
-
-        $('#delete-checkbox').change(function () {
-            isNodeDeleting = $('#delete-checkbox').prop('checked');
-        });
-    });
+    loadGraph  = function(){
+//        console.log($('#data').text());text
+        setAllNodeLinks(JSON.parse($('#data').val()));
+    };
 
     var rad = function(x) {
         return x * Math.PI / 180;
@@ -193,4 +207,11 @@ var showData;
     };
 
     google.maps.event.addDomListener(window, 'load', initMap);
+
+    $(document).ready(function(){
+
+        $('#delete-checkbox').change(function () {
+            isNodeDeleting = $('#delete-checkbox').prop('checked');
+        });
+    });
 })();

@@ -35,7 +35,8 @@
     <div class="controls">
         <button onclick="resetCurrentNode()">Начальная точка</button>
         <button onclick="showData()">Получить код графа</button>
-        <textarea name="" id="data" cols="30" rows="10" style="display: none"></textarea>
+        <textarea name="" id="data" cols="30" rows="10" style="display: block"></textarea>
+        <button onclick="loadGraph()">Загрузить граф</button>
         <button onclick="setGraphFromFile()">Построить граф из файла</button>
         <input type="checkbox" id="delete-checkbox"/> Удалить точку
     </div>
