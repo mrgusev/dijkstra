@@ -95,13 +95,17 @@ var showData;
     }
 
     function addNodeLink(node1, node2){
-        var nodeLink = {
-            node1Id: node1.id,
-            node2Id: node2.id,
-            distance: getDistance(node1, node2)
-        };
-        nodeLinks.push(nodeLink);
-        addPathSegment(node1, node2);
+        if(!_.findWhere(nodeLinks, {node1Id: node1.id, node2Id: node2.id}) &&
+            !_.findWhere(nodeLinks, {node1Id: node2.id, node2Id: node1.id})) {
+
+            var nodeLink = {
+                node1Id: node1.id,
+                node2Id: node2.id,
+                distance: getDistance(node1, node2)
+            };
+            nodeLinks.push(nodeLink);
+            addPathSegment(node1, node2);
+        }
     }
 
     showData = function(){
