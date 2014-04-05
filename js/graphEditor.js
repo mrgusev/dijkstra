@@ -2,7 +2,7 @@ var resetCurrentNode;
 var setGraphFromFile;
 var showData;
 var loadGraph;
-(function(){
+//(function(){
     var map;
     var markersArray = [];
 
@@ -30,7 +30,7 @@ var loadGraph;
     }
 
     function addNode(latLng){
-        var count = nodes.length + 1;
+        var count = _.sortBy(nodes, function(n){return n.id;}).reverse()[0].id + 1;
         var node = {
             id: count,
             lat: latLng.lat(),
@@ -48,8 +48,10 @@ var loadGraph;
         var links = _.where(nodeLinks, {node1Id: node.id}).concat(_.where(nodeLinks, {node2Id: node.id}));
         var marker = _.findWhere(markersArray, {node: node});
         nodes.remove(node);
-        markersArray.remove(marker);
-        marker.setMap(null);
+        if(marker){
+            markersArray.remove(marker);
+            marker.setMap(null);
+        }
         _.each(links, function(link){
             nodeLinks.remove(link);
         });
@@ -57,7 +59,6 @@ var loadGraph;
         drawAllPaths();
         $('#delete-checkbox').prop('checked', '');
         isNodeDeleting = false;
-
     }
 
     function addNodeLink(node1, node2){
@@ -74,14 +75,27 @@ var loadGraph;
         }
     }
 
+    function fixIds(){
+        var newNodesId = [];
+        _.each(nodes, function(node){
+           if(_.contains(newNodesId, node.id)){
+              deleteNode(node);
+               deleteNode(_.findWhere(nodes, {id: node.id}));
+           } else{
+               newNodesId.push(node.id);
+           }
+        });
+    }
     function setAllNodeLinks(data){
         clearAll();
         nodes = data.nodes;
         _.each(nodes, function(node){
+
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(node.lat, node.lng),
                 map: map,
-                node: node
+                node: node,
+                title: node.id.toString()
             });
 
             // add marker in markers array
@@ -99,6 +113,9 @@ var loadGraph;
         });
         nodeLinks = data.nodeLinks;
         currentNode = null;
+        console.log(nodes.length);
+        fixIds();
+        console.log(nodes.length);
         drawAllPaths();
     }
 
@@ -108,7 +125,8 @@ var loadGraph;
         var marker = new google.maps.Marker({
             position: location,
             map: map,
-            node: node
+            node: node,
+            title: node.id.toString()
         });
 
         // add marker in markers array
@@ -214,4 +232,4 @@ var loadGraph;
             isNodeDeleting = $('#delete-checkbox').prop('checked');
         });
     });
-})();
+//})();
