@@ -1,8 +1,9 @@
 var dijkstra;
+var parents = [];
 (function(){
     var matrix;
-    var parents = [];
-    var execute = function (startNodeId){
+    var distance = [];
+    var execute = function (startNodeId, endNodeId){
         var result = {
             nodeSequence: [],
             totalDistance: 0,
@@ -11,48 +12,60 @@ var dijkstra;
 
         //-------
         Dijkstra(matrix, startNodeId);
+        return {
+            path: getShortestPath(endNodeId),
+            totalDistance: distance[endNodeId]
+        }
     };
 
     function Dijkstra(GR, st)
     {
         parents = [];
-        var distance = [], count, index, i, u, m = st+1;
+        distance = [];
+        var count, index, i, u, m = st+1;
         var visited = [];
         var V = GR.length;
         for (i=0; i<V; i++)
         {
-            distance[i] = Number.MAX_VALUE; visited[i] = false;
+            distance[i] = Number.MAX_VALUE;
+            visited[i] = false;
+            parents[i] = -1;
         }
         distance[st]=0;
         for (count=0; count<V-1; count++)
         {
             var min = Number.MAX_VALUE;
-            for (i=0; i<V; i++)
+            for (i=0; i<V; i++){
                 if (!visited[i] && distance[i]<=min)
                 {
                     min=distance[i];
                     index=i;
                 }
+            }
             u = index;
             visited[u] = true;
-            for (i=0; i<V; i++)
-                if (!visited[i] && GR[u][i] && distance[u]!= Number.MAX_VALUE &&
+            for (i=0; i<V; i++){
+
+                if (!visited[i] && typeof GR[u][i] != 'undefined' && distance[u]!= Number.MAX_VALUE &&
                     distance[u]+GR[u][i]<distance[i]){
                     distance[i]=distance[u]+GR[u][i];
                     parents[i] = u;
                 }
+            }
+
         }
     }
 
 
     var getShortestPath = function(endNodeId){
-        var path = [endNodeId];
+        var path = [];
+        path.push(endNodeId);
         getPrevNodes(endNodeId, path);
         return path;
     };
 
     function getPrevNodes(nodeId, path){
-        if(parents[nodeId]){
+        if(parents[nodeId]!=-1){
             path.push(parents[nodeId]);
             getPrevNodes(parents[nodeId], path);
         }
@@ -84,7 +97,6 @@ var dijkstra;
 
     dijkstra = {
         execute: execute,
-        setMatrix: setMatrix,
-        getShortestPath: getShortestPath
+        setMatrix: setMatrix
     };
 })();

@@ -79,15 +79,15 @@ var routeMaker;
         return minDistanceNode;
     }
 
-//    function drawMap(){
-//        _.each(graph.nodes, function(node){
-//            new google.maps.Marker({
-//                position: new google.maps.LatLng(node.lat, node.lng),
-//                map: map,
-//                title: node.id.toString()
-//            });
-//        })
-//    }
+    function drawMap(){
+        _.each(graph.nodes, function(node){
+            new google.maps.Marker({
+                position: new google.maps.LatLng(node.lat, node.lng),
+                map: map,
+                title: node.id.toString()
+            });
+        })
+    }
 
     function setPoint(latLng){
         if(!startNode){
@@ -107,10 +107,13 @@ var routeMaker;
     }
 
     function findShortestRoute(){
-        dijkstra.execute(startNode.id);
+        var result = dijkstra.execute(startNode.id, endNode.id);
 
-        var pathNodeIds = dijkstra.getShortestPath(endNode.id);
+        var pathNodeIds = result.path;
+        $('#time').text(Math.round(result.totalDistance/80) + ' .мин');
+        $('#length').text(Math.round(result.totalDistance) + ' метров');
         drawRoute(pathNodeIds);
+//        drawMap();
     }
 
     function resetRoute(){

@@ -14,14 +14,14 @@
     <script src="js/prototypes.js"></script>
     <script src="js/vendor/jquery.js"></script>
     <script type="text/javascript" src="js/vendor/underscore.js"></script>
-    <script src="js/dijkstra.js"></script>
+    <!--<script src="js/dijkstra.js"></script>-->
     <script src="js/geometry.js"></script>
-    <!--<script type="text/javascript" src="js/graphEditor.js"></script>-->
-    <script type="text/javascript" src="js/routeMaker.js"></script>
+    <script type="text/javascript" src="js/graphEditor.js"></script>
+    <!--<script type="text/javascript" src="js/routeMaker.js"></script>-->
     <script></script>
     <style>
         #map_canvas{
-           float: left;
+            float: left;
         }
         button{
             display: block;
@@ -35,10 +35,15 @@
     </style>
 </head>
 <body>
-    <div id="map_canvas"></div>
-    <div class="controls">
-        <p>Длина маршрута: <span id="length"></span></p>
-        <p>Время: <span id="time"></span></p>
-    </div>
+<div id="map_canvas"></div>
+<div class="controls">
+    <button onclick="resetCurrentNode()">Начальная точка</button>
+    <button onclick="showData()">Получить код графа</button>
+    <textarea name="" id="data" cols="30" rows="10" style="display: block"></textarea>
+    <button onclick="loadGraph()">Загрузить граф</button>
+    <button onclick="setGraphFromFile()">Построить граф из файла</button>
+    <input type="checkbox" id="delete-checkbox"/> Удалить точку
+    <button onclick="makePath()">Проложить путь</button>
+</div>
 </body>
 </html>
