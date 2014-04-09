@@ -110,7 +110,7 @@ var routeMaker;
         var result = dijkstra.execute(startNode.id, endNode.id);
 
         var pathNodeIds = result.path;
-        $('#time').text(Math.round(result.totalDistance/80) + ' .мин');
+        $('#time').text(Math.round(result.totalDistance/80) + ' мин.');
         $('#length').text(Math.round(result.totalDistance) + ' метров');
         drawRoute(pathNodeIds);
 //        drawMap();
