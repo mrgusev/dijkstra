@@ -30,7 +30,10 @@ var loadGraph;
     }
 
     function addNode(latLng){
-        var count = _.sortBy(nodes, function(n){return n.id;}).reverse()[0].id + 1;
+        var count = 1;
+        if(nodes.length > 0 ){
+            count = _.sortBy(nodes, function(n){return n.id;}).reverse()[0].id + 1;
+        }
         var node = {
             id: count,
             lat: latLng.lat(),
@@ -44,6 +47,30 @@ var loadGraph;
         return node;
     }
 
+function makePath(){
+    dijkstra.setGraph({
+        nodes:nodes,
+        nodeLinks: nodeLinks
+    });
+    dijkstra.execute(_.findWhere(nodes, {id: 41}));
+    drawShortestPath();
+}
+
+function drawShortestPath(){
+    var pathNodes = getShortestPath(133);
+    var path = [];
+    alert(_.pluck(pathNodes, 'id'))
+    var segment = new google.maps.Polyline({
+        path: path,
+        geodesic: true,
+        strokeColor: '#00FF00',
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        zIndex: 100
+    });
+    segment.setMap(map);
+
+}
     function deleteNode(node){
         var links = _.where(nodeLinks, {node1Id: node.id}).concat(_.where(nodeLinks, {node2Id: node.id}));
         var marker = _.findWhere(markersArray, {node: node});
@@ -68,7 +95,7 @@ var loadGraph;
             var nodeLink = {
                 node1Id: node1.id,
                 node2Id: node2.id,
-                distance: getDistance(node1, node2)
+                distance: Geometry.getDistance(node1, node2)
             };
             nodeLinks.push(nodeLink);
             addPathSegment(node1, node2);
@@ -199,6 +226,8 @@ var loadGraph;
             type: 'get',
             success: function(data) {
                 setAllNodeLinks(data);
+                dijkstra.setGraph(data);
+                dijkstra.execute(_.findWhere(data.nodes, {id: 139}));
             }
         });
     }
@@ -206,22 +235,6 @@ var loadGraph;
     loadGraph  = function(){
 //        console.log($('#data').text());text
         setAllNodeLinks(JSON.parse($('#data').val()));
-    };
-
-    var rad = function(x) {
-        return x * Math.PI / 180;
-    };
-
-    var getDistance = function(node1, node2) {
-        var R = 6378137; // Earth’s mean radius in meter
-        var dLat = rad(node2.lat - node1.lat);
-        var dLong = rad(node2.lng - node1.lng);
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(rad(node1.lat)) * Math.cos(rad(node2.lat)) *
-            Math.sin(dLong / 2) * Math.sin(dLong / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c;
-        return d; // returns the distance in meter
     };
 
     google.maps.event.addDomListener(window, 'load', initMap);

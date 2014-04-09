@@ -14,7 +14,11 @@
     <script src="js/prototypes.js"></script>
     <script src="js/vendor/jquery.js"></script>
     <script type="text/javascript" src="js/vendor/underscore.js"></script>
-    <script type="text/javascript" src="js/graphEditor.js"></script>
+    <script src="js/dijkstra.js"></script>
+    <script src="js/geometry.js"></script>
+    <!--<script type="text/javascript" src="js/graphEditor.js"></script>-->
+    <script type="text/javascript" src="js/routeMaker.js"></script>
+    <script></script>
     <style>
         #map_canvas{
            float: left;
@@ -39,6 +43,7 @@
         <button onclick="loadGraph()">Загрузить граф</button>
         <button onclick="setGraphFromFile()">Построить граф из файла</button>
         <input type="checkbox" id="delete-checkbox"/> Удалить точку
+        <button onclick="makePath()">Проложить путь</button>
     </div>
 </body>
 </html>
