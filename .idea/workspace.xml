@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32be58a2-f364-48ae-8dd0-fa5165eff73e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/tainGraphEditor.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trainEditor.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/trainGraph.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/dijkstra.js" afterPath="$PROJECT_DIR$/js/dijkstra.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/graphEditor.js" afterPath="$PROJECT_DIR$/js/graphEditor.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/prototypes.js" afterPath="$PROJECT_DIR$/js/prototypes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/routeMaker.js" afterPath="$PROJECT_DIR$/js/routeMaker.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -33,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.7088609" vertical-offset="862" max-vertical-offset="1485">
-              <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.2776886" vertical-offset="862" max-vertical-offset="1485">
+              <caret line="69" column="20" selection-start-line="69" selection-start-column="20" selection-end-line="69" selection-end-column="20" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#li#1;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -59,26 +53,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routeMaker.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="routeMaker.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/routeMaker.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37066245" vertical-offset="905" max-vertical-offset="2415">
-              <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+            <state vertical-scroll-proportion="-6.3454547" vertical-offset="326" max-vertical-offset="3015">
+              <caret line="117" column="81" selection-start-line="117" selection-start-column="81" selection-end-line="117" selection-end-column="81" />
               <folding>
                 <element signature="e#634#736#0" expanded="false" />
                 <element signature="e#825#1431#0" expanded="false" />
                 <element signature="e#1512#1811#0" expanded="false" />
                 <element signature="e#1871#1918#0" expanded="false" />
                 <element signature="e#1995#3151#0" expanded="false" />
-                <element signature="e#3294#4164#0" expanded="false" />
-                <element signature="e#4240#4762#0" expanded="false" />
-                <element signature="e#4878#5358#0" expanded="false" />
-                <element signature="e#5408#5633#0" expanded="false" />
-                <element signature="e#5681#5806#0" expanded="false" />
-                <element signature="e#6421#6836#0" expanded="false" />
-                <element signature="e#6905#6966#0" expanded="false" />
-                <element signature="e#7506#9146#0" expanded="false" />
-                <element signature="e#9197#9397#0" expanded="false" />
+                <element signature="e#4473#4995#0" expanded="false" />
+                <element signature="e#5111#5591#0" expanded="false" />
+                <element signature="e#5641#5866#0" expanded="false" />
+                <element signature="e#5914#6039#0" expanded="false" />
+                <element signature="e#7138#7199#0" expanded="false" />
+                <element signature="e#7739#9379#0" expanded="false" />
+                <element signature="e#9430#9630#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -119,8 +111,8 @@
         <option value="$PROJECT_DIR$/js/graphEditor.js" />
         <option value="$PROJECT_DIR$/js/prototypes.js" />
         <option value="$PROJECT_DIR$/js/dijkstra.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/routeMaker.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -342,7 +334,11 @@
       <created>1397049650730</created>
       <updated>1397049650730</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Implemented dijkstra algo for the train graph. Refactoring, added comments.">
+      <created>1397732163281</created>
+      <updated>1397732163281</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -369,6 +365,7 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -384,7 +381,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -436,7 +432,8 @@
     <MESSAGE value="Implemented basic dijkstra algo." />
     <MESSAGE value="Fixed bug with &quot;zero&quot; node" />
     <MESSAGE value="Updated graph" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated graph" />
+    <MESSAGE value="Implemented dijkstra algo for the train graph. Refactoring, added comments." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented dijkstra algo for the train graph. Refactoring, added comments." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -529,15 +526,13 @@
             <element signature="e#1512#1811#0" expanded="false" />
             <element signature="e#1871#1918#0" expanded="false" />
             <element signature="e#1995#3151#0" expanded="false" />
-            <element signature="e#3294#4164#0" expanded="false" />
-            <element signature="e#4240#4762#0" expanded="false" />
-            <element signature="e#4878#5358#0" expanded="false" />
-            <element signature="e#5408#5633#0" expanded="false" />
-            <element signature="e#5681#5806#0" expanded="false" />
-            <element signature="e#6421#6836#0" expanded="false" />
-            <element signature="e#6905#6966#0" expanded="false" />
-            <element signature="e#7506#9146#0" expanded="false" />
-            <element signature="e#9197#9397#0" expanded="false" />
+            <element signature="e#4473#4995#0" expanded="false" />
+            <element signature="e#5111#5591#0" expanded="false" />
+            <element signature="e#5641#5866#0" expanded="false" />
+            <element signature="e#5914#6039#0" expanded="false" />
+            <element signature="e#7138#7199#0" expanded="false" />
+            <element signature="e#7739#9379#0" expanded="false" />
+            <element signature="e#9430#9630#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -882,18 +877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.7088609" vertical-offset="862" max-vertical-offset="1485">
-          <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#1;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#2;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/graphEditor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2071" max-vertical-offset="3360">
@@ -906,23 +889,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/routeMaker.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37066245" vertical-offset="905" max-vertical-offset="2415">
-          <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+        <state vertical-scroll-proportion="-6.3454547" vertical-offset="326" max-vertical-offset="3015">
+          <caret line="117" column="81" selection-start-line="117" selection-start-column="81" selection-end-line="117" selection-end-column="81" />
           <folding>
             <element signature="e#634#736#0" expanded="false" />
             <element signature="e#825#1431#0" expanded="false" />
             <element signature="e#1512#1811#0" expanded="false" />
             <element signature="e#1871#1918#0" expanded="false" />
             <element signature="e#1995#3151#0" expanded="false" />
-            <element signature="e#3294#4164#0" expanded="false" />
-            <element signature="e#4240#4762#0" expanded="false" />
-            <element signature="e#4878#5358#0" expanded="false" />
-            <element signature="e#5408#5633#0" expanded="false" />
-            <element signature="e#5681#5806#0" expanded="false" />
-            <element signature="e#6421#6836#0" expanded="false" />
-            <element signature="e#6905#6966#0" expanded="false" />
-            <element signature="e#7506#9146#0" expanded="false" />
-            <element signature="e#9197#9397#0" expanded="false" />
+            <element signature="e#4473#4995#0" expanded="false" />
+            <element signature="e#5111#5591#0" expanded="false" />
+            <element signature="e#5641#5866#0" expanded="false" />
+            <element signature="e#5914#6039#0" expanded="false" />
+            <element signature="e#7138#7199#0" expanded="false" />
+            <element signature="e#7739#9379#0" expanded="false" />
+            <element signature="e#9430#9630#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2776886" vertical-offset="862" max-vertical-offset="1485">
+          <caret line="69" column="20" selection-start-line="69" selection-start-column="20" selection-end-line="69" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#li#1;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#li#2;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

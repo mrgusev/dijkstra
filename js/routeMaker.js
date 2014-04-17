@@ -107,22 +107,25 @@
      */
 
     // Отрисовка маршрута со сложными ребрами
-    function drawComplexRoute(pathNodes, graph, color) {
+    function drawComplexRoute(pathNodes, graph, color, collection) {
         var path = [];
         var prevNode;
-        for (var i = pathNodes.length - 1; i >= 0; i--) {
+//        var lastVertex = graph.nodes[0].vertices.;
+        for (var i = 0; i < pathNodes.length; i++) {
             var node = _.findWhere(graph.nodes, {id: pathNodes[i]});
             if (prevNode) {
-                var neighbour = _.findWhere(node.neighbours, {node: prevNode});
-                _.each(neighbour.vertices, function (vertex) {
+                var vertices = _.findWhere(node.neighbours, {node: prevNode}).vertices;
+                if(vertices[0].lat != prevNode.lat || vertices[0].lng != prevNode.lng){
+                    vertices = vertices.reverse();
+                }
+                _.each(vertices, function (vertex) {
                     path.push(new google.maps.LatLng(vertex.lat, vertex.lng));
                 });
+//                lastVertex /= vertices.last();
             }
             prevNode = node;
-//            path.push(new google.maps.LatLng(node.lat, node.lng));
-
         }
-        routePath = new google.maps.Polyline({
+        var routePath = new google.maps.Polyline({
             path: path,
             geodesic: true,
             strokeColor: color,
@@ -131,7 +134,9 @@
             zIndex: 100
         });
         routePath.setMap(map);
-        trainSegments.push(routePath);
+        if(collection){
+            collection.push(routePath);
+        }
     }
 
     // Отрисовка маршрута
