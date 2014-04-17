@@ -7,4 +7,13 @@ Array.prototype.remove = function(value) {
         return this.splice(idx, 1); // The second parameter is the number of elements to remove.
     }
     return false;
-}
+};
+
+Array.prototype.last = function() {
+    return this[this.length - 1];
+};
+
+Array.prototype.first = function() {
+    return this[0];
+};
+

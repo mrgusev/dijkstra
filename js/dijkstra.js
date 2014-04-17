@@ -1,32 +1,17 @@
 var dijkstra;
-var parents = [];
 (function(){
-    var matrix;
-    var distance = [];
-    var execute = function (startNodeId, endNodeId){
-        var result = {
-            nodeSequence: [],
-            totalDistance: 0,
-            calculationTime: 0
-        };
+    var matrix;         // матрица взешенного графа
+    var distance = [];  // массив расстояний от стартового до остальных узлов
+    var parents = [];   // массив родительских элементов маршрута
 
-        //-------
-        Dijkstra(matrix, startNodeId);
-        return {
-            path: getShortestPath(endNodeId),
-            totalDistance: distance[endNodeId]
-        }
-    };
-
-    function Dijkstra(GR, st)
-    {
+    // алгоритм Дейкстры (GR - матричное представление графа со взвешенными ребрами, st - номер начальной точки)
+    function Dijkstra(GR, st) {
         parents = [];
         distance = [];
-        var count, index, i, u, m = st+1;
+        var count, index, i, u;
         var visited = [];
         var V = GR.length;
-        for (i=0; i<V; i++)
-        {
+        for (i=0; i<V; i++) {
             distance[i] = Number.MAX_VALUE;
             visited[i] = false;
             parents[i] = -1;
@@ -56,7 +41,7 @@ var parents = [];
         }
     }
 
-
+    // Получение кратчайшего маршрута по родительским узлам
     var getShortestPath = function(endNodeId){
         var path = [];
         path.push(endNodeId);
@@ -64,6 +49,7 @@ var parents = [];
         return path;
     };
 
+    // Рекурсивное получение родительских узлов
     function getPrevNodes(nodeId, path){
         if(parents[nodeId]!=-1){
             path.push(parents[nodeId]);
@@ -71,30 +57,21 @@ var parents = [];
         }
     }
 
-    function checkNode(currentNode){
-        if(!currentNode.checked){
-            _.each(currentNode.neighbours, function(neighbour){
-                var pathDistance = currentNode.value + neighbour.distance;
-                if(!neighbour.node.checked && neighbour.node.value > pathDistance){
-                    neighbour.node.value = pathDistance;
-                    neighbour.node.prevNode = currentNode;
-                }
-            });
-
-            currentNode.checked = true;
-            var sortedNeighbours = _.sortBy(currentNode.neighbours, function(neighbour){
-               return neighbour.node.value;
-            });
-
-            _.each(sortedNeighbours, function(neighbour){
-                checkNode(neighbour.node);
-            });
-        }
-    }
+    // Публичный метод для установки матрицы-графа
     var setMatrix = function(input){
         matrix = input;
     };
 
+    // Публичный метод выполнения алгоритма Дейкстры
+    var execute = function (startNodeId, endNodeId){
+        Dijkstra(matrix, startNodeId);
+        return {
+            path: getShortestPath(endNodeId),
+            totalDistance: distance[endNodeId]
+        }
+    };
+
+    //
     dijkstra = {
         execute: execute,
         setMatrix: setMatrix

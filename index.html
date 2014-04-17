@@ -23,22 +23,72 @@
         #map_canvas{
            float: left;
         }
+        ul{
+            list-style: none;
+        }
         button{
             display: block;
             margin-bottom: 20px;
         }
-        .controls{
+        .sidebar{
             padding: 50px;
             float: left;
 
+        }
+        .legend span{
+            display: inline-block;
+            width: 70px;
+            height: 3px;
+            margin-right: 15px;
+        }
+        .legend li{
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div id="map_canvas"></div>
-    <div class="controls">
-        <p>Длина маршрута: <span id="length"></span></p>
-        <p>Время: <span id="time"></span></p>
+    <div class="sidebar">
+        <div class="legend">
+            <h3>Легенда</h3>
+            <ul>
+                <li> <span style="background: #00FF00"></span>Пеший маршрут</li>
+                <li><span style="background: #0000FF"></span>Маршрут трамвая </li>
+                <li><span style="background: #FF00FF"></span>Пеший маршурт до остановки </li>
+            </ul>
+        </div>
+        <div class="info">
+            <div class="walking">
+                <h3>Пеший маршрут</h3>
+                <ul>
+                    <li>Длина маршрута: <span id="walking-length"></span></li>
+                    <li>Время: <span id="walking-time"></span></li>
+                </ul>
+            </div>
+            <div class="train">
+                <h3>Маршрут трамвая</h3>
+                <ul>
+                    <li>Длина маршрута: <span id="train-length"></span></li>
+                    <li>Время: <span id="train-time"></span></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="controls">
+            <h3>Опции</h3>
+            <ul>
+                <li>
+                    <input type="checkbox" id="show-walking" checked name="items"/> Показать пеший маршрут
+                </li>
+                <li>
+                    <input type="checkbox" id="show-train" checked name="items"/> Показать маршрут трамвая
+                </li>
+
+                <li>
+                    <input type="checkbox" id="show-graph"/> Показать граф
+                </li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>

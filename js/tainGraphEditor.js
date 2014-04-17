@@ -2,17 +2,15 @@ var resetCurrentNode;
 var setGraphFromFile;
 var showData;
 var loadGraph;
-//(function(){
 var map;
 var markersArray = [];
 
 var currentNode;
+var currentNodeLink;
 var nodes = [];
 var nodeLinks = [];
 var segments = [];
 var isNodeDeleting = false;
-
-var mode = 1;
 
 
 
@@ -28,20 +26,42 @@ function initMap() {
     // add a click event handler to the map object
     google.maps.event.addListener(map, "click", function (event) {
         // place a marker
-        placeMarker(event.latLng);
+        placeVertex(event.latLng);
     });
 
     google.maps.event.addListener(map, "rightclick", function (event) {
         // place a marker
-        if(mode == 2){
 
-        }
-        placeMarker(event.latLng);
+        placeStation(event.latLng);
     });
 }
 
-function placeStaion(latLng){
+function placeStation(latLng){
+    placeMarker(latLng);
 
+    currentNodeLink = {
+        node1Id: currentNode.id,
+        vertices: [{lat: currentNode.lat, lng: currentNode.lng}],
+        distance: 0
+    }
+}
+
+function addLinkVertex(latLng){
+    var newVertex = {
+        lat: latLng.lat(),
+        lng: latLng.lng()
+    };
+    var prevVertex = _.last(currentNodeLink.vertices);
+    currentNodeLink.vertices.push(newVertex);
+    currentNodeLink.distance += Geometry.getDistance(newVertex, prevVertex);
+    addPathSegment(prevVertex, newVertex);
+
+}
+
+function placeVertex(latLng){
+    if(currentNodeLink){
+        addLinkVertex(latLng);
+    }
 }
 
 function addNode(latLng) {
@@ -60,6 +80,7 @@ function addNode(latLng) {
     if (currentNode) {
         addNodeLink(currentNode, node);
     }
+
     currentNode = node;
     return node;
 }
@@ -82,16 +103,12 @@ function deleteNode(node) {
 }
 
 function addNodeLink(node1, node2) {
-    if (!_.findWhere(nodeLinks, {node1Id: node1.id, node2Id: node2.id}) && !_.findWhere(nodeLinks, {node1Id: node2.id, node2Id: node1.id})) {
-
-        var nodeLink = {
-            node1Id: node1.id,
-            node2Id: node2.id,
-            distance: Geometry.getDistance(node1, node2)
-        };
-        nodeLinks.push(nodeLink);
-        addPathSegment(node1, node2);
+    if(currentNodeLink){
+        addLinkVertex(new google.maps.LatLng(node2.lat, node2.lng));
+        currentNodeLink.node2Id = node2.id;
+        nodeLinks.push(currentNodeLink);
     }
+
 }
 
 function fixIds() {
@@ -183,7 +200,13 @@ function drawAllPaths() {
         item.setMap(null);
     });
     _.each(nodeLinks, function (link) {
-        addPathSegment(_.findWhere(nodes, {id: link.node1Id}), _.findWhere(nodes, {id: link.node2Id}));
+        var prevVertex;
+        _.each(link.vertices, function(vertex){
+            if(prevVertex){
+                addPathSegment(vertex, prevVertex);
+            }
+            prevVertex = vertex;
+        });
     })
 }
 
@@ -215,15 +238,13 @@ showData = function () {
 
 setGraphFromFile = function () {
     $.ajax({
-        url: 'data/graph.json',
+        url: 'data/trainGraph.json',
         type: 'get',
         success: function (data) {
             setAllNodeLinks(data);
-            dijkstra.setGraph(data);
-            dijkstra.execute(_.findWhere(data.nodes, {id: 139}));
         }
     });
-}
+};
 
 loadGraph = function () {
 //        console.log($('#data').text());text
